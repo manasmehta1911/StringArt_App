@@ -66,9 +66,10 @@ def generate_circle_coordinates(ax):
     for i in range(NO_OF_NAILS):
         angle = 2 * math.pi * i / NO_OF_NAILS
         x = (RADIUS_CIRCLE) * math.cos(angle) + RADIUS_CIRCLE 
-        y = (RADIUS_CIRCLE) * math.sin(angle) + RADIUS_CIRCLE 
+        y = (RADIUS_CIRCLE) * math.sin(-angle) + RADIUS_CIRCLE 
         NAILS["N" + str(i)] = (x, y)
         ax.scatter(x, y, color="black", s = 2)
+    print(NAILS)
 
 def is_fittest_point(row, col, intensity, idx):
     global best_improvement_value, current_rgb_values
@@ -77,7 +78,7 @@ def is_fittest_point(row, col, intensity, idx):
             col, row, idx]) ** 2
 
     cumilative_improvement = np.sum(before_diff - after_diff)
-    print(cumilative_improvement)
+    # print(cumilative_improvement)
     if cumilative_improvement >= best_improvement_value:
         best_improvement_value = cumilative_improvement
         return True
@@ -92,7 +93,7 @@ def choose_best_point(x, y, prev_x, prev_y, idx):
     for i in range(NO_OF_NAILS):
         angle = 2 * math.pi * i / NO_OF_NAILS
         x1 = (RADIUS_CIRCLE) * math.cos(angle) + RADIUS_CIRCLE 
-        y1 = (RADIUS_CIRCLE) * math.sin(angle) + RADIUS_CIRCLE 
+        y1 = (RADIUS_CIRCLE) * math.sin(-angle) + RADIUS_CIRCLE 
 
         if (x1 != x and y1 != y):
             row, col, intensity = line_aa(int(x), int(y), int(x1), int(y1))
@@ -120,7 +121,7 @@ def save_numbers_to_pdf():
     y = 750
 
     vertical_spacing = 15
-    row_labels = ['Red', 'Green', 'Blue'] 
+    row_labels = ['Blue', 'Green', 'Red'] 
     color_idx = -1
 
     y -= 15
