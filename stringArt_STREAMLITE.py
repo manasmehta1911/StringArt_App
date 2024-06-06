@@ -18,7 +18,9 @@ STRING_STRENGTH = 0.1
 RADIUS_CIRCLE = (IMAGE_RESOLUTION // 2) - 0.5
 NAILS = {}
 NAIL_SEQUENCE = []
-color_dict = {0: [(0, 0.1, 1), 0.7], 1: ["green", 0.7], 2: ["red", 0.7]}
+color_dict = {0: [(0, 0.1, 1), 1], 1: ["green", 1], 2: ["red", 1]}
+COLOR_CHANGE_INTERVAL = (ITERATIONS//25)
+# color_dict = {0: ["green", 1], 1: ["green", 1], 2: ["green", 1]}
 image_path = ""
 
 def open_image():
@@ -40,13 +42,14 @@ def create_art():
         return False
 
 def update_iterations():
-    global ITERATIONS
+    global ITERATIONS, COLOR_CHANGE_INTERVAL
     try:
         ITERATIONS = int(st.text_input("Iterations", ITERATIONS))
         if ITERATIONS < 25:
             st.warning('Too less iterations!! Enter Iterations more than 25.', icon="⚠️")
             return False
         else:
+            COLOR_CHANGE_INTERVAL = ITERATIONS//25
             return True
     
     except ValueError:
@@ -62,6 +65,18 @@ def update_nails():
         st.error("Please enter a valid integer for number of nails.")
         return False
 
+def update_color_change_interval():
+    global COLOR_CHANGE_INTERVAL
+    try:
+        COLOR_CHANGE_INTERVAL = int(st.text_input("Color Change Interval (in iterations)", COLOR_CHANGE_INTERVAL))
+        if COLOR_CHANGE_INTERVAL < 1:
+            st.warning('Color Change Interval must be at least 1.', icon="⚠️")
+            return False
+        return True
+    except ValueError:
+        st.error("Please enter a valid integer for color change interval.")
+        return False
+    
 def generate_circle_coordinates(ax):
     for i in range(NO_OF_NAILS):
         angle = 2 * math.pi * i / NO_OF_NAILS
@@ -127,7 +142,7 @@ def save_numbers_to_pdf():
     y -= 15
     flag = 0
     for i in range(0, len(NAIL_SEQUENCE), 1):
-        if((i % (ITERATIONS//25)) == 0):
+        if((i % COLOR_CHANGE_INTERVAL) == 0):
             y -= 2 * vertical_spacing 
             flag = 1
             x = 80
@@ -172,7 +187,7 @@ def main():
         prev_x, prev_y = x1, y1
         x1, y1 = x2, y2
         
-        if((i % (ITERATIONS//25)) == 0):
+        if((i % COLOR_CHANGE_INTERVAL) == 0):
                 color_idx += 1
     
     ax.grid(False)
@@ -200,8 +215,9 @@ if __name__ == "__main__":
     if st.checkbox("Show Parameters", False):
         itr = update_iterations()
         nls = update_nails()
+        cci = update_color_change_interval()
 
-    if st.button("Generate String Art") and itr and nls:
+    if st.button("Generate String Art") and itr and nls and cci:
         if create_art():
             filename = "output_StringArt.pdf"
             pdf_bytes = save_numbers_to_pdf()
