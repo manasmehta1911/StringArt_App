@@ -18,7 +18,7 @@ STRING_STRENGTH = 0.1
 RADIUS_CIRCLE = (IMAGE_RESOLUTION // 2) - 0.5
 NAILS = {}
 NAIL_SEQUENCE = []
-color_dict = {0: [(0, 0.1, 1), 1], 1: ["green", 1], 2: ["red", 1]}
+color_dict = {0: [(0, 0.2, 1), 0.7], 1: ["green", 0.7], 2: ["red", 0.7]}
 COLOR_CHANGE_INTERVAL = (ITERATIONS//25)
 
 image_path = ""
