@@ -18,9 +18,9 @@ STRING_STRENGTH = 0.1
 RADIUS_CIRCLE = (IMAGE_RESOLUTION // 2) - 0.5
 NAILS = {}
 NAIL_SEQUENCE = []
-color_dict = {0: [(0, 0.5, 1), 1], 1: ["green", 1], 2: ["red", 1]}
+color_dict = {0: [(0, 0.2, 1), 1], 1: ["green", 1], 2: ["red", 1]}
 COLOR_CHANGE_INTERVAL = (ITERATIONS//25)
-# color_dict = {0: ["green", 1], 1: ["green", 1], 2: ["green", 1]}
+
 image_path = ""
 
 def open_image():
