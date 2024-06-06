@@ -20,6 +20,7 @@ NAILS = {}
 NAIL_SEQUENCE = []
 color_dict = {0: [(0, 0.1, 0.8), 1], 1: ["green", 1], 2: ["red", 1]}
 COLOR_CHANGE_INTERVAL = (ITERATIONS//25)
+# color_dict = {0: ["green", 1], 1: ["green", 1], 2: ["green", 1]}
 image_path = ""
 
 def open_image():
