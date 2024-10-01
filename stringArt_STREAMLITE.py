@@ -207,7 +207,7 @@ if __name__ == "__main__":
 
     open_image()
 
-    st.sidebar.image("https://yt3.googleusercontent.com/ytc/AIdro_m_FFw3OGZ5SH0U-l_37_HQMQCyqfoL2co8iCBJQgQJ-q4b=s900-c-k-c0x00ffffff-no-rj", use_column_width=True)
+    st.sidebar.image("https://yt3.googleusercontent.com/TeQQPLTqlDyDTyMAuWyAk8-YhVtpid74marzXqheJwkUN21Rnds6WQvf_VW3NC2CCo41BzAkwWc=s900-c-k-c0x00ffffff-no-rj", use_column_width=True)
     
     st.sidebar.markdown("<p style='font-size:20px; font-weight:bold;'>Center For Creative Learning (CCL), IIT Gandhinagar</p>", unsafe_allow_html=True)
 
