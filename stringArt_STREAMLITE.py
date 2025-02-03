@@ -218,6 +218,8 @@ if __name__ == "__main__":
         cci = update_color_change_interval()
 
     if st.button("Generate String Art") and itr and nls and cci:
+        st.markdown("<p style='font-size:15px; font-weight:bold;'>Please Wait: The process might take atleast 2 minutes to generate the output(for default parameters)</p>", unsafe_allow_html=True)
+    
         if create_art():
             filename = "output_StringArt.pdf"
             pdf_bytes = save_numbers_to_pdf()
@@ -227,5 +229,8 @@ if __name__ == "__main__":
                 file_name=filename,
                 mime="application/pdf"
             )
+
+            st.markdown("<p style='font-size:15px; font-weight:bold;'>The sequence shown in PDF is in Row-Major order</p>", unsafe_allow_html=True)
+   
 
     
