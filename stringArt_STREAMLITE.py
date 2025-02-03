@@ -211,7 +211,9 @@ if __name__ == "__main__":
     
     st.sidebar.markdown("<p style='font-size:20px; font-weight:bold;'>Center For Creative Learning (CCL), IIT Gandhinagar</p>", unsafe_allow_html=True)
 
-    itr = nls = True
+    st.markdown("<p style='font-size:15px; font-weight:bold;'>-> The image must contain more than 80 percent of your face with high quality</p>", unsafe_allow_html=True)
+   
+    cci = itr = nls = True
     if st.checkbox("Show Parameters", False):
         itr = update_iterations()
         nls = update_nails()
