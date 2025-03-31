@@ -82,7 +82,7 @@ def generate_circle_coordinates(ax):
         angle = 2 * math.pi * i / NO_OF_NAILS
         x = (RADIUS_CIRCLE) * math.cos(angle) + RADIUS_CIRCLE 
         y = (RADIUS_CIRCLE) * math.sin(-angle) + RADIUS_CIRCLE 
-        NAILS["N" + str(i)] = (x, y)
+        NAILS[str(i)] = (x, y)
         ax.scatter(x, y, color="black", s = 2)
     print(NAILS)
 
@@ -130,9 +130,9 @@ def save_numbers_to_pdf():
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
     c.setFont("Helvetica-Bold", 20)
-    c.drawString(250, 740, "String Art")
+    c.drawString(75, 740, "String Art (Begin by tying the string to Nail 0)")
     c.setFont("Helvetica-Bold", 12)
-    x = 80
+    x = 100
     y = 750
 
     vertical_spacing = 15
@@ -145,27 +145,27 @@ def save_numbers_to_pdf():
         if((i % COLOR_CHANGE_INTERVAL) == 0):
             y -= 2 * vertical_spacing 
             flag = 1
-            x = 80
+            x = 100
 
         if(x >= 550):
             y -= vertical_spacing
-            x = 80
+            x = 100
 
         if y <= 50:
             c.showPage()
             c.setFont("Helvetica-Bold", 12)
             c.setFillColor(row_labels[color_idx%3])
-            x = 80
+            x = 100
             y = 750
 
         if flag == 1:
             color_idx += 1
             c.setFillColor(row_labels[color_idx%3])
-            c.drawString(50, y, row_labels[color_idx%3][0])
+            c.drawString(50, y, row_labels[color_idx%3])
             flag = 0
 
         c.drawString(x, y, str(NAIL_SEQUENCE[i]))
-        x += 50
+        x += 40
 
     c.save()
     pdf_bytes = buffer.getvalue()
@@ -196,8 +196,11 @@ def main():
     ax.set_ylabel('Y')
 
     fig.canvas.draw()
-    image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8')
-    image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+    buffer, (width, height) = fig.canvas.print_to_buffer()
+    image = np.frombuffer(buffer, dtype=np.uint8).reshape((height, width, 4))  # 4 channels (RGBA)
+
+    # Convert from RGBA to RGB (Matplotlib stores in RGBA)
+    image = image[:, :, :3]
 
     st.image(image, caption='String Art', use_column_width=True)
     
@@ -207,7 +210,7 @@ if __name__ == "__main__":
 
     open_image()
 
-    st.sidebar.image("https://yt3.googleusercontent.com/TeQQPLTqlDyDTyMAuWyAk8-YhVtpid74marzXqheJwkUN21Rnds6WQvf_VW3NC2CCo41BzAkwWc=s900-c-k-c0x00ffffff-no-rj", use_column_width=True)
+    st.sidebar.image("https://yt3.googleusercontent.com/iasBsytfo6AOZ1ywW2ffiSgzMyKISmB-EOOPaWUSrppnvyzXXtSKMhB2ijKbZ2p1tXOz77oh1A=s900-c-k-c0x00ffffff-no-rj", use_column_width=True)
     
     st.sidebar.markdown("<p style='font-size:20px; font-weight:bold;'>Center For Creative Learning (CCL), IIT Gandhinagar</p>", unsafe_allow_html=True)
 
